@@ -1,5 +1,54 @@
+# IDE specific
+.vscode
+.idea
+
+# mac specific
+.DS_Store
+.ansible
+.azure/
+.bash_history
+
+# Scala/Java specific
 *.class
 *.log
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+
+
+# Terraform
+# This is a minimal list, OK to add things per repo
+
+# don't check storage creds into GH
+.boto
+.cache
+*.code-workspace
+#  may contain gcloud files
+.config
+.gitconfig
+.local
+# .netrc contains secrets for service tokens
+.netrc
+*.plan
+.sentinel
+# .ssh dir may contain private keys
+.ssh
+.terrascan
+# Terraform dot files
+.terraform
+.terraformrc
+**/.terraform/*
+.terraform.d
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+credentials.json
+
+# Auto variables
+terraform.tfvars
+terraform.tfvars.json
+*.auto.tfvars
+*.auto.tfvars.json
