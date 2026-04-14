@@ -1,0 +1,11 @@
+version: 2
+
+# Try using these source definitions instead!
+sources:
+  - name: bq_user_event_data_raw
+    description: Transform and aggregate user event
+    database: "{{ target.database }}"
+    schema: "{{ target.schema }}"
+    tables:
+      - name: "user-events-table"
+        description: One record per user event like login, play song etc.

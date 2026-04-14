@@ -1,0 +1,11 @@
+transformations:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      threads: 16
+      database: "{{ var('PROJECT_ID') }}"
+      schema: "{{ var('BQ_DATASET') }}"
+      method: oauth
+      location: US
+      dataproc_batch: null

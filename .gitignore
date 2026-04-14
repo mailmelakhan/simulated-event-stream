@@ -52,3 +52,22 @@ terraform.tfvars
 terraform.tfvars.json
 *.auto.tfvars
 *.auto.tfvars.json
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+### dbt ###
+target/
+dbt_modules/
+dbt_packages/
+logs/
+.user.yml
+
+
+.python-version
