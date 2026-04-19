@@ -6,4 +6,4 @@ WORKDIR /usr/app/transformations
 
 RUN dbt deps
 
-CMD ["dbt", "run", "--target", "dev"]
+ENTRYPOINT ["dbt", "run", "--target", "dev"]

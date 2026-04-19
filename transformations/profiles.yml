@@ -6,6 +6,6 @@ transformations:
       threads: 16
       database: "{{ var('PROJECT_ID') }}"
       schema: "{{ var('BQ_DATASET') }}"
-      method: oauth
+      method: "{{ var('AUTH_METHOD') }}"
       location: US
       dataproc_batch: null

@@ -1,7 +1,6 @@
 variable "project_id" {
   type        = string
   description = "Gcloud project id"
-  default     = "data-eng-project-490702"
 }
 
 variable "bucket_name" {
