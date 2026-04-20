@@ -2,8 +2,7 @@
 
 ## Overview
 
-This project implements a complete ELT data pipeline using [EventSim](https://github.com/Interana/eventsim), EvenSim is a user events simulator for music service like spotify. EventSim is run as cloud run job and generates realistic user event data and ingests it into Google Managed Kafka. Dataflow streams kafka events to BigQuery, applies DBT transformations, and visualizes insights via Looker Studio dashboards.
-Image used for generate user events are build from [forked version of eventsim](https://github.com/mailmelakhan/eventsim), docker hub image [mailmelakhan/eventsim](https://hub.docker.com/repository/docker/mailmelakhan/eventsim/general). 
+This project implements a complete ELT data pipeline using [EventSim](https://github.com/Interana/eventsim), a user event simulator that generates realistic event streams similar to a music streaming service like Spotify. EventSim runs as a Cloud Run job, producing user activity data that is ingested into Google Managed Kafka. Dataflow then streams these Kafka events into BigQuery, where DBT is used for transformations, and the results are visualized through Looker Studio dashboards. The event generation image is built from a [forked version of EventSim](https://github.com/mailmelakhan/eventsim), and published on Docker Hub as [mailmelakhan/eventsim](https://hub.docker.com/repository/docker/mailmelakhan/eventsim/general). 
 
 
 ## Project Architecture
