@@ -2,7 +2,8 @@
 
 ## Overview
 
-This project implements a complete ELT data pipeline for analyzing user events from a music streaming service. The pipeline generates realistic user event data using EventSim, ingests it into Google Managed Kafka, processes it through Dataflow to BigQuery, applies DBT transformations, and visualizes insights via Looker Studio dashboards.
+This project implements a complete ELT data pipeline for analyzing user events from a music streaming service. The pipeline generates realistic user event data using [EventSim](https://github.com/Interana/eventsim), ingests it into Google Managed Kafka, processes it through Dataflow to BigQuery, applies DBT transformations, and visualizes insights via Looker Studio dashboards.
+Image used for generate user events are build from [forked version of eventsim](https://github.com/mailmelakhan/eventsim), docker hub image [mailmelakhan/eventsim](https://hub.docker.com/repository/docker/mailmelakhan/eventsim/general). 
 
 
 ## Project Architecture

@@ -93,7 +93,7 @@ resource "google_cloud_run_v2_job" "dbt_transform" {
     template {
       containers {
         name  = "dbt-transform"
-        image = "mailmelakhan/dbt_transform_user_events:0.0.4"
+        image = "mailmelakhan/dbt_transform_user_events:0.0.5"
         args = [
           "--vars={\"PROJECT_ID\":\"${var.project_id}\", \"BQ_DATASET\":\"${google_bigquery_dataset.user_events_dataset.dataset_id}\", \"AUTH_METHOD\":\"oauth\"}"
         ]
