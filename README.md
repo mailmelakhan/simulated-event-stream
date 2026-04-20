@@ -32,7 +32,7 @@ Before starting, ensure you have:
 4. **Google Cloud Platform Account** - Active GCP project with billing enabled
 5. **gcloud CLI** - Google Cloud command-line tool
 
-## Step-by-Step Setup
+## Setup Steps
 
 ### 1. Clone the Repository
 
@@ -77,9 +77,16 @@ gcloud services enable \
 
 ### 4. Build DBT Transformation Image (Optional)
 
-The pre-built DBT image is available on Docker Hub. If you want to rebuild, change directory to `transformations` folder, 
-and then run following command with appropriate tag name:
+The pre-built DBT image is available on Docker Hub [mailmelakhan/dbt_transform_user_events](https://hub.docker.com/repository/docker/mailmelakhan/dbt_transform_user_events/general). If you want to rebuild, navigate to `transformations` folder, and then run following command with appropriate tag name:
 
+Building for current platform only
+```bash
+docker build -t mailmelakhan/dbt_transform_user_events \
+  -t mailmelakhan/dbt_transform_user_events:0.0.4 \
+  . --push
+```
+
+Cross platform build
 ```bash
 docker buildx build --platform linux/amd64,linux/arm64 \
   -t mailmelakhan/dbt_transform_user_events \
