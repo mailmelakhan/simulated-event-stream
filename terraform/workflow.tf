@@ -33,8 +33,8 @@ resource "google_project_iam_member" "workflow_invoker_user" {
   depends_on = [google_project_service.enabled_apis]
 }
 
-resource "google_workflows_workflow" "user_events_workflow" {
-  name            = "user-events-workflow"
+resource "google_workflows_workflow" "transformation_workflow" {
+  name            = "transformation-workflow"
   region          = "us-central1"
   description     = "User Events Workflow"
   service_account = google_service_account.workflow_service_account.id
@@ -49,7 +49,7 @@ main:
                 - project_id: ${var.project_id}
                 - job_location: ${var.location}
                 - event_simulator_job_name: ${google_cloud_run_v2_job.event_simulator.name}
-                - transformation_job_name: ${google_cloud_run_v2_job.dbt_transform_user_events.name}
+                - transformation_job_name: ${google_cloud_run_v2_job.dbt_transform.name}
         - run_dbt_transform:
             call: googleapis.run.v1.namespaces.jobs.run
             args:
@@ -62,9 +62,9 @@ EOF
   depends_on          = [google_project_service.enabled_apis, google_project_service_identity.workflows_agent]
 }
 
-resource "google_cloud_scheduler_job" "user_events_workflow_scheduler" {
-  name             = "user-events-workflow-scheduler"
-  description      = "User events workflow scheduler"
+resource "google_cloud_scheduler_job" "workflow_scheduler" {
+  name             = "workflow-scheduler"
+  description      = "Workflow scheduler"
   region           = var.location
   schedule         = "0 8 * * *"
   time_zone        = "America/New_York"
@@ -76,7 +76,7 @@ resource "google_cloud_scheduler_job" "user_events_workflow_scheduler" {
 
   http_target {
     http_method = "POST"
-    uri         = "https://workflowexecutions.googleapis.com/v1/${google_workflows_workflow.user_events_workflow.id}/executions"
+    uri         = "https://workflowexecutions.googleapis.com/v1/${google_workflows_workflow.transformation_workflow.id}/executions"
     oauth_token {
       service_account_email = google_service_account.workflow_invoker_service_account.email
     }

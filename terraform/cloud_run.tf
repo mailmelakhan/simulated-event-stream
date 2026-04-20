@@ -83,16 +83,16 @@ resource "google_cloud_run_v2_job" "event_simulator" {
   depends_on = [google_project_service.enabled_apis, google_managed_kafka_cluster.kafka_cluster, google_managed_kafka_topic.kafka_topic]
 }
 
-resource "google_cloud_run_v2_job" "dbt_transform_user_events" {
+resource "google_cloud_run_v2_job" "dbt_transform" {
   client              = "cloud-console"
-  name                = "dbt-transform-user-events"
+  name                = "dbt-transform"
   location            = var.location
   deletion_protection = false
 
   template {
     template {
       containers {
-        name  = "dbt-transform-user-events"
+        name  = "dbt-transform"
         image = "mailmelakhan/dbt_transform_user_events:0.0.4"
         args = [
           "--vars={\"PROJECT_ID\":\"${var.project_id}\", \"BQ_DATASET\":\"${google_bigquery_dataset.user_events_dataset.dataset_id}\", \"AUTH_METHOD\":\"oauth\"}"

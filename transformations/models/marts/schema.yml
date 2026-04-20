@@ -1,0 +1,98 @@
+version: 2
+
+models:
+  - name: mrt_request_per_hour
+    description: Hourly request counts from user events in the past 12 months
+    columns:
+      - name: hour
+        description: Hour timestamp truncated to the hour
+      - name: requests
+        description: Total number of requests in that hour
+
+  - name: mrt_error_rate
+    description: Hourly error rate percentage calculated from HTTP status codes
+    columns:
+      - name: hour
+        description: Hour timestamp truncated to the hour
+      - name: total_requests
+        description: Total number of requests in that hour
+      - name: error_count
+        description: Number of requests with non-200 status code
+      - name: error_rate_pct
+        description: Percentage of requests that resulted in an error
+
+  - name: mrt_session_dropoff
+    description: Session dropoff analysis showing the last page where users ended their session
+    columns:
+      - name: last_page
+        description: The last page visited in a session
+      - name: drop_off_sessions
+        description: Number of sessions that ended on this page
+
+  - name: mrt_monthly_paid_users
+    description: Monthly percentage of paid users out of all active users
+    columns:
+      - name: month
+        description: Month timestamp truncated to the month
+      - name: paid_user_pct
+        description: Percentage of users with paid subscription
+
+  - name: mrt_monthly_paid_user_churn_percentage
+    description: Monthly churn rate for paid users who did not return in the following month
+    columns:
+      - name: prev_month
+        description: The previous month used for churn calculation
+      - name: churn_pct
+        description: Percentage of paid users who churned
+
+  - name: mrt_monthly_churn_percentage
+    description: Monthly overall churn rate for all users who did not return in the following month
+    columns:
+      - name: prev_month
+        description: The previous month used for churn calculation
+      - name: churn_pct
+        description: Percentage of users who churned
+
+  - name: mrt_hour_vs_activity
+    description: User activity breakdown by hour of the day
+    columns:
+      - name: hour
+        description: Hour of day (0-23)
+      - name: events
+        description: Total number of events in that hour
+      - name: active_users
+        description: Number of distinct active users in that hour
+
+  - name: mrt_daily_avg_listening_time
+    description: Daily average listening time per user for NextSong pages
+    columns:
+      - name: day
+        description: Date of the listening activity
+      - name: avg_listening_time_per_user
+        description: Average listening time in seconds across all users for that day
+
+  - name: mrt_traffic_by_page
+    description: Traffic volume grouped by page type
+    columns:
+      - name: page
+        description: The page name
+      - name: requests
+        description: Total number of requests to this page
+
+  - name: mrt_location_breakdown
+    description: Event and user counts grouped by geographic location
+    columns:
+      - name: location
+        description: Geographic location of users
+      - name: events
+        description: Total number of events from this location
+      - name: users
+        description: Number of distinct users from this location
+
+  - name: mrt_device_breakdown
+    description: Event counts grouped by device type derived from user agent
+    columns:
+      - name: device_type
+        description: Device type (iPhone, iPad, Mac, Windows, Linux, Other)
+      - name: events
+        description: Total number of events from this device type

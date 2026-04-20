@@ -27,7 +27,8 @@ locals {
     "managedkafka.googleapis.com",
     "workflowexecutions.googleapis.com",
     "workflows.googleapis.com",
-    "iam.googleapis.com"
+    "iam.googleapis.com",
+    "cloudscheduler.googleapis.com"
   ]
 }
 

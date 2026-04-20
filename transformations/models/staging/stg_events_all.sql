@@ -1,2 +1,21 @@
-SELECT *
+SELECT
+    ts,
+    timestamp,
+    userId,
+    firstName,
+    lastName,
+    gender,
+    level,
+    location,
+    registration,
+    auth,
+    sessionId,
+    itemInSession,
+    length,
+    page,
+    method,
+    status,
+    userAgent,
+    artist,
+    song
 FROM {{ source('bq_user_event_data_raw', 'user-events-table') }}

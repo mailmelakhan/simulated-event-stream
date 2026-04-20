@@ -1,0 +1,86 @@
+version: 2
+
+models:
+  - name: stg_events_past_12_months
+    description: User events from the past 12 months filtered from the raw table
+    columns:
+      - name: ts
+        description: Numeric timestamp
+      - name: timestamp
+        description: Event timestamp
+      - name: userId
+        description: User id
+      - name: firstName
+        description: User first name
+      - name: lastName
+        description: User last name
+      - name: gender
+        description: User gender (M/F)
+      - name: level
+        description: Subscription level (paid/free)
+      - name: location
+        description: User location
+      - name: registration
+        description: User registration timestamp
+      - name: auth
+        description: User auth mode (Logged In/Logged Out/Guest)
+      - name: sessionId
+        description: User session id
+      - name: itemInSession
+        description: Request count within same session
+      - name: length
+        description: Session length in seconds
+      - name: page
+        description: Name of the page logged for user request
+      - name: method
+        description: Request method (GET/PUT)
+      - name: status
+        description: HTTP request status code
+      - name: userAgent
+        description: User agent string
+      - name: artist
+        description: Artist name
+      - name: song
+        description: Song name
+
+  - name: stg_events_all
+    description: All user events from the raw table
+    columns:
+      - name: ts
+        description: Numeric timestamp
+      - name: timestamp
+        description: Event timestamp
+      - name: userId
+        description: User id
+      - name: firstName
+        description: User first name
+      - name: lastName
+        description: User last name
+      - name: gender
+        description: User gender (M/F)
+      - name: level
+        description: Subscription level (paid/free)
+      - name: location
+        description: User location
+      - name: registration
+        description: User registration timestamp
+      - name: auth
+        description: User auth mode (Logged In/Logged Out/Guest)
+      - name: sessionId
+        description: User session id
+      - name: itemInSession
+        description: Request count within same session
+      - name: length
+        description: Session length in seconds
+      - name: page
+        description: Name of the page logged for user request
+      - name: method
+        description: Request method (GET/PUT)
+      - name: status
+        description: HTTP request status code
+      - name: userAgent
+        description: User agent string
+      - name: artist
+        description: Artist name
+      - name: song
+        description: Song name
