@@ -11,6 +11,7 @@ resource "google_bigquery_dataset" "user_events_dataset" {
     role          = "roles/bigquery.dataEditor"
     user_by_email = google_service_account.dataflow.email
   }
+  depends_on = [google_project_service.enabled_apis]
 }
 
 resource "google_bigquery_table" "user_events_table" {
@@ -135,10 +136,12 @@ resource "google_bigquery_table" "user_events_table" {
   }
 ]
 EOF
-
+  depends_on = [google_project_service.enabled_apis]
 }
 
 resource "google_bigquery_table" "user_events_table_dlq" {
   dataset_id = google_bigquery_dataset.user_events_dataset.dataset_id
   table_id   = "user-events-table-dlq"
+  deletion_protection = false
+  depends_on = [google_project_service.enabled_apis]
 }

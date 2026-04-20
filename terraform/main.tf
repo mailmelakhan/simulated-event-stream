@@ -18,11 +18,14 @@ provider "google" {
 
 locals {
   services = [
+    "storage.googleapis.com",
+    "bigquerystorage.googleapis.com",
     "bigquery.googleapis.com",
     "run.googleapis.com",
     "storage.googleapis.com",
     "dataflow.googleapis.com",
     "managedkafka.googleapis.com",
+    "workflowexecutions.googleapis.com",
     "workflows.googleapis.com",
     "iam.googleapis.com"
   ]

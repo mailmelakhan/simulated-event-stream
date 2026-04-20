@@ -72,7 +72,7 @@ resource "google_dataflow_flex_template_job" "kafka_to_bigquery" {
   machine_type            = "e2-medium"
   enable_streaming_engine = true
   parameters = {
-    readBootstrapServerAndTopic = "bootstrap.user-events-kafka-cluster.us-central1.managedkafka.data-eng-project-490702.cloud.goog:9092;user-events-topic"
+    readBootstrapServerAndTopic = "bootstrap.${var.kafka_cluster_name}.${var.location}.managedkafka.${var.project_id}.cloud.goog:9092;user-events-topic"
     consumerGroupId             = "kafka-to-bigquery"
     enableCommitOffsets         = true
     messageFormat               = "JSON"
@@ -85,5 +85,5 @@ resource "google_dataflow_flex_template_job" "kafka_to_bigquery" {
     writeMode                   = "SINGLE_TABLE_NAME"
     useBigQueryDLQ              = true
   }
-  depends_on = [google_managed_kafka_cluster.kafka_cluster, google_managed_kafka_topic.kafka_topic, google_bigquery_dataset.user_events_dataset, google_bigquery_table.user_events_table, google_bigquery_table.user_events_table_dlq, google_storage_bucket.user-events-bucket]
+  depends_on = [google_project_service.enabled_apis, google_managed_kafka_cluster.kafka_cluster, google_managed_kafka_topic.kafka_topic, google_bigquery_dataset.user_events_dataset, google_bigquery_table.user_events_table, google_bigquery_table.user_events_table_dlq, google_storage_bucket.user-events-bucket]
 }

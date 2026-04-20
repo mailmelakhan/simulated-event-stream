@@ -6,12 +6,14 @@ resource "google_service_account" "kafka_read_write" {
   project      = var.project_id
   account_id   = "kafka-read-write"
   display_name = "A service account that has read/write access to kafka"
+  depends_on = [google_project_service.enabled_apis]
 }
 
 resource "google_project_iam_member" "kafka_read_write_user" {
   project = var.project_id
   role    = "roles/managedkafka.client"
   member  = "serviceAccount:${google_service_account.kafka_read_write.email}"
+  depends_on = [google_project_service.enabled_apis]
 }
 
 /*
@@ -78,7 +80,7 @@ resource "google_cloud_run_v2_job" "event_simulator" {
     task_count  = 1
     parallelism = 1
   }
-  depends_on = [google_managed_kafka_cluster.kafka_cluster, google_managed_kafka_topic.kafka_topic]
+  depends_on = [google_project_service.enabled_apis, google_managed_kafka_cluster.kafka_cluster, google_managed_kafka_topic.kafka_topic]
 }
 
 resource "google_cloud_run_v2_job" "dbt_transform_user_events" {
@@ -109,5 +111,5 @@ resource "google_cloud_run_v2_job" "dbt_transform_user_events" {
     task_count  = 1
     parallelism = 1
   }
-  depends_on = [google_bigquery_table.user_events_table]
+  depends_on = [google_project_service.enabled_apis, google_bigquery_table.user_events_table]
 }

@@ -15,6 +15,7 @@ resource "google_managed_kafka_cluster" "kafka_cluster" {
   rebalance_config {
     mode = "AUTO_REBALANCE_ON_SCALE_UP"
   }
+  depends_on = [google_project_service.enabled_apis]
 }
 
 resource "google_managed_kafka_topic" "kafka_topic" {
@@ -26,5 +27,5 @@ resource "google_managed_kafka_topic" "kafka_topic" {
   configs = {
     "cleanup.policy" = "compact"
   }
-  depends_on = [google_managed_kafka_cluster.kafka_cluster]
+  depends_on = [google_project_service.enabled_apis, google_managed_kafka_cluster.kafka_cluster]
 }

@@ -2,30 +2,35 @@ resource "google_project_service_identity" "workflows_agent" {
   provider = google-beta
   project  = var.project_id
   service  = "workflows.googleapis.com"
+  depends_on = [google_project_service.enabled_apis]
 }
 
 resource "google_service_account" "workflow_service_account" {
   project      = var.project_id
   account_id   = "workflow-executor"
   display_name = "A service account that has permission to trigger workflow and cloud run jobs"
+  depends_on = [google_project_service.enabled_apis]
 }
 
 resource "google_project_iam_member" "workflow_user" {
   project = var.project_id
   role    = "roles/run.admin" //TODO: Fix this
   member  = "serviceAccount:${google_service_account.workflow_service_account.email}"
+  depends_on = [google_project_service.enabled_apis]
 }
 
 resource "google_service_account" "workflow_invoker_service_account" {
   project      = var.project_id
   account_id   = "workflow-invoker"
   display_name = "A service account that has permission to trigger workflow and cloud run jobs"
+  depends_on = [google_project_service.enabled_apis]
 }
 
 resource "google_project_iam_member" "workflow_invoker_user" {
   project = var.project_id
   role    = "roles/workflows.invoker"
   member  = "serviceAccount:${google_service_account.workflow_invoker_service_account.email}"
+  depends_on = [google_project_service.enabled_apis]
 }
 
 resource "google_workflows_workflow" "user_events_workflow" {
@@ -54,7 +59,7 @@ main:
         - finish:
             return: $${job_execution}
 EOF
-  depends_on          = [google_project_service_identity.workflows_agent]
+  depends_on          = [google_project_service.enabled_apis, google_project_service_identity.workflows_agent]
 }
 
 resource "google_cloud_scheduler_job" "user_events_workflow_scheduler" {
@@ -76,4 +81,5 @@ resource "google_cloud_scheduler_job" "user_events_workflow_scheduler" {
       service_account_email = google_service_account.workflow_invoker_service_account.email
     }
   }
+  depends_on = [google_project_service.enabled_apis]
 }

@@ -6,4 +6,5 @@ resource "google_storage_bucket" "user-events-bucket" {
   location                    = "US"
   force_destroy               = true
   uniform_bucket_level_access = true
+  depends_on = [google_project_service.enabled_apis]
 }
