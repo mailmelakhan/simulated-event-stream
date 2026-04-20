@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project implements a complete ELT data pipeline for analyzing user events from a music streaming service. The pipeline generates realistic user event data using [EventSim](https://github.com/Interana/eventsim), ingests it into Google Managed Kafka, processes it through Dataflow to BigQuery, applies DBT transformations, and visualizes insights via Looker Studio dashboards.
+This project implements a complete ELT data pipeline using [EventSim](https://github.com/Interana/eventsim), EvenSim is a user events simulator for music service like spotify. EventSim is run as cloud run job and generates realistic user event data and ingests it into Google Managed Kafka. Dataflow streams kafka events to BigQuery, applies DBT transformations, and visualizes insights via Looker Studio dashboards.
 Image used for generate user events are build from [forked version of eventsim](https://github.com/mailmelakhan/eventsim), docker hub image [mailmelakhan/eventsim](https://hub.docker.com/repository/docker/mailmelakhan/eventsim/general). 
 
 
@@ -121,6 +121,7 @@ This creates:
 - Cloud Storage bucket
 - Dataflow flex template job
 - Cloud Run jobs (event simulator, DBT transformations)
+- Scheduler and Workflow
 - Required service accounts and IAM roles
 
 ### 6. Execute the Event Simulator
@@ -139,6 +140,7 @@ This job:
 - Simulates 366 days of user activity
 - Applies 4% annual growth rate
 - Produces over 1 million events
+- You can refer [EventSim](https://github.com/mailmelakhan/eventsim#usage) and update these parameters to play around
 
 
 ### 7. Execute DBT Transformations Workflow
