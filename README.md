@@ -78,7 +78,8 @@ gcloud services enable \
 
 ### 4. Build DBT Transformation Image (Optional)
 
-The pre-built DBT image is available on Docker Hub. If you need to rebuild:
+The pre-built DBT image is available on Docker Hub. If you want to rebuild, change directory to `transformations` folder, 
+and then run following command with appropriate tag name:
 
 ```bash
 docker buildx build --platform linux/amd64,linux/arm64 \
@@ -140,15 +141,17 @@ This job:
 - Produces over 1 million events
 
 
-### 7. Execute DBT Transformations
+### 7. Execute DBT Transformations Workflow
 
-After events are ingested to BigQuery, run the DBT transformation job:
+After events are ingested to BigQuery, run the DBT transformation workflow:
 
 ```bash
-gcloud run jobs execute dbt-transform-user-events \
-  --region us-central1 \
-  --project $PROJECT_ID
+gcloud workflows run transformation-workflow \
+  --project $PROJECT_ID \
+  --location us-central1
 ```
+Check workflow status at https://console.cloud.google.com/workflows/workflow/us-central1/transformation-workflow/executions
+![Transformation Workflow](static_resources/transformation-workflow.png)
 
 ### 8. Run DBT Locally (Optional)
 
@@ -204,7 +207,7 @@ Alternatively, view the PDF version:
 |-------------------------|-------------|
 | transformation-workflow | Executes the DBT transformation Cloud Run job |
 
-The workflow is configured to run the `dbt-transform-user-events` Cloud Run job, which performs DBT transformations on the BigQuery data.
+The workflow is configured to run the `dbt_transform` Cloud Run job, which performs DBT transformations on the BigQuery data.
 
 ### Cloud Scheduler
 
@@ -214,15 +217,6 @@ A Cloud Scheduler job runs the workflow every morning at 8 AM:
 |----------|----------|--------|
 | `0 8 * * *` | UTC | workflow-scheduler |
 
-## Running the Workflow Manually
-
-To trigger the workflow from the command line:
-
-```bash
-gcloud workflows run transformation-workflow \
-  --project $PROJECT_ID \
-  --location us-central1
-```
 
 ## Cleanup
 
