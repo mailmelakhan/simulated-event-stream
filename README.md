@@ -2,8 +2,14 @@
 
 ## Overview
 
-This project implements a complete ELT data pipeline using [EventSim](https://github.com/Interana/eventsim), a user event simulator that generates realistic event streams similar to a music streaming service like Spotify. EventSim runs as a Cloud Run job, producing user activity data that is ingested into Google Managed Kafka. Dataflow then streams these Kafka events into BigQuery, where DBT is used for transformations, and the results are visualized through Looker Studio dashboards. The event generation image is built from a [forked version of EventSim](https://github.com/mailmelakhan/eventsim), and published on Docker Hub as [mailmelakhan/eventsim](https://hub.docker.com/repository/docker/mailmelakhan/eventsim/general). 
+This project implements a complete ELT data pipeline using [EventSim](https://github.com/Interana/eventsim) as event source, which is a simulator that generates 
+realistic users activity stream similar to a music streaming service like Spotify. Music Streaming Service wants to use this 
+user events streaming data to keep track of churn proxy, subscription growth, location & device breakdown, hour vs activity heatmap
+and other important business insights.  
 
+EventSim runs as a Cloud Run job, producing user activity data that is ingested into Google Managed Kafka. 
+Dataflow then streams these Kafka events into BigQuery, where DBT is used for transformations, and the results are 
+visualized through Looker Studio dashboards.
 
 ## Project Architecture
 
@@ -150,8 +156,7 @@ This job:
 
 
 ### 7. Execute DBT Transformations Workflow
-
-After events are ingested to BigQuery, run the DBT transformation workflow:
+DBT transformations run daily as part of GCP workflow (8:00 AM daily). To run it manually use following command.
 
 ```bash
 gcloud workflows run transformation-workflow \
@@ -174,15 +179,11 @@ dbt deps
 dbt run --target dev
 ```
 
-### 9. View the Dashboard
+## Dashboard
 
-Access the Looker Studio dashboard:
+Looker Studio dashboard: **[User Event Data Analytics Dashboard](https://datastudio.google.com/s/iPrASsnYy1E)**
 
-**[User Event Data Analytics Dashboard](https://datastudio.google.com/s/iPrASsnYy1E)**
-
-Alternatively, view the PDF version:
-
-- [User Events Analytics Dashboard PDF](static_resources/User_Event_Data_Analytics_Dashboard.pdf)
+![dashboard.png](static_resources/dashboard.png)
 
 ## Pipeline Components
 
